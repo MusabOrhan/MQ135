@@ -8,8 +8,6 @@ float t=0;
 char data = 0;
 int maviled=2;
 
-String apiKey = "";  // Write API key
-
 void setup() 
 
 {   
