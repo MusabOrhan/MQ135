@@ -1,21 +1,26 @@
 #include <SoftwareSerial.h>
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(13, 12, 6, 5, 4, 3); // LCD connections
+LiquidCrystal lcd(13, 12, 6, 5, 4, 3); 
 
 
 float t=0;
 char data = 0;
 int maviled=2;
+int role=7;  
+
 
 void setup() 
 
 {   
-  pinMode(maviled,OUTPUT);             
+               
 
   Serial.begin(9600); 
 
- 
+  pinMode(role,OUTPUT);  
+  pinMode(maviled,OUTPUT);
+  
+  
   lcd.begin(16, 2);  
 
 
@@ -52,8 +57,7 @@ void loop()
 
   delay(1000);
 
-  t = analogRead(A0);  // Read sensor value and stores in a variable t
-
+  t = analogRead(A0);  
   Serial.print("Airquality = ");
 
   Serial.println(t);
@@ -69,15 +73,15 @@ void loop()
    {
    lcd.print("Temiz Hava");
    Serial.print("Temiz Hava ");
-    digitalWrite(maviled,LOW);
-   
+   digitalWrite(maviled,LOW);
+   digitalWrite(role,LOW);  
 }
   else
 {
    lcd.print("Kirli Hava");
    Serial.print("Kirli Hava");
    digitalWrite(maviled,HIGH);
-   
+   digitalWrite(role,HIGH);  
   
 }
   
