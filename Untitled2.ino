@@ -1,0 +1,183 @@
+
+#include <SoftwareSerial.h>
+
+
+#include <LiquidCrystal.h>
+
+
+
+LiquidCrystal lcd(13, 12, 6, 5, 4, 3); 
+
+
+
+
+
+float t=0;
+
+char data = 0;
+
+int maviled=2;
+
+int role=7;  
+
+
+
+
+
+void setup() 
+
+
+
+{   
+
+               
+
+
+
+  Serial.begin(9600); 
+
+
+
+  pinMode(role,OUTPUT);  
+
+  pinMode(maviled,OUTPUT);
+
+  
+
+  
+
+  lcd.begin(16, 2);  
+
+
+
+
+
+  lcd.setCursor(0,0); 
+
+
+
+  lcd.print("     HOS");
+
+
+
+  lcd.setCursor(0,1);
+
+
+
+  lcd.print("   GELDINIZ        "); 
+
+
+
+  delay(3000);
+
+
+
+
+
+  lcd.clear();
+
+
+
+  lcd.setCursor(0,0);
+
+
+
+  lcd.print("     HAVA"); 
+
+
+
+  lcd.setCursor(0,1);
+
+
+
+  lcd.print("KALITE MONITORU");  
+
+
+
+  
+
+ }
+
+
+
+
+
+
+
+
+
+void loop()
+
+
+
+{
+
+
+
+  delay(1000);
+
+
+
+  t = analogRead(A0);  
+
+  Serial.print("Airquality = ");
+
+
+
+  Serial.println(t);
+
+
+
+  lcd.clear();
+
+  lcd.setCursor (0, 0);
+
+  lcd.print ("Hava Kal.: ");
+
+  lcd.print (t);
+
+  lcd.print (" PPM ");
+
+  
+
+  lcd.setCursor (0,1);
+
+  if (t<=500)
+
+   {
+
+   lcd.print("Temiz Hava");
+
+   Serial.print("Temiz Hava ");
+
+   digitalWrite(maviled,LOW);
+
+   digitalWrite(role,LOW);  
+
+}
+
+  else
+
+{
+
+   lcd.print("Kirli Hava");
+
+   Serial.print("Kirli Hava");
+
+   digitalWrite(maviled,HIGH);
+
+   digitalWrite(role,HIGH);  
+
+  
+
+}
+
+  
+
+ 
+
+
+
+
+
+}
